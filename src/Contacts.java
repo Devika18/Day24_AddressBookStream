@@ -7,7 +7,7 @@ public class Contacts {
     private int zipCode;
     private long phoneNumber;
 
-    public Contacts(){
+    public Contacts() {
 
     }
 
