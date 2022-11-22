@@ -171,6 +171,15 @@ public class AddressBookMain {
         System.out.println("No of contacts Matched " + input + " city is : " + count);
     }
 
+    // sort by state
+    public static void sortingByState() {
+        if (addressBook.isEmpty()) {
+            System.out.println("Contact book is empty");
+        } else {
+            addressBook.stream().sorted(Comparator.comparing(Contacts::getState)).forEach(System.out::println);
+        }
+    }
+
 
     //Provided person details
     {
@@ -263,7 +272,8 @@ public class AddressBookMain {
                 case 8 -> addressBookMain.searchPersonInMultipleBook();
                 case 9 -> addressBookMain.searchPersonByCityOrState();
                 case 10 -> addressBookMain.countCity();
-                case 11 -> isExit = true;
+                case 11 -> addressBookMain.sortingByState();
+                case 12 -> isExit = true;
                 default -> System.out.println("Please enter valid details");
             }
         }
