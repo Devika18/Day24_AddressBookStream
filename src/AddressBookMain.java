@@ -2,7 +2,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AddressBookMain {
-    private List<Contacts> addressBook;
+    private static List<Contacts> addressBook;
 
     //Map is used to store data in key and value format.
     //Used create multiple address books
@@ -163,6 +163,14 @@ public class AddressBookMain {
                 .collect(Collectors.toList());
     }
 
+    // count by city
+    public static void countCity() {
+        System.out.println("Enter a city name ");
+        String input = sc.nextLine();
+        long count = addressBook.stream().filter(city -> city.getCity().equals(input)).count();
+        System.out.println("No of contacts Matched " + input + " city is : " + count);
+    }
+
 
     //Provided person details
     {
@@ -241,7 +249,8 @@ public class AddressBookMain {
                     7. Search person for duplicate entry
                     8. search Person in a City or State from all AddressBook
                     9. search person by city or state
-                    10. Exit""");
+                    10. count by city
+                    11. Exit""");
             int choice = Integer.parseInt(sc.nextLine());
             switch (choice) {
                 case 1 -> addressBookMain.addAddressBooks();
@@ -253,7 +262,8 @@ public class AddressBookMain {
                 case 7 -> addressBookMain.searchPerson();
                 case 8 -> addressBookMain.searchPersonInMultipleBook();
                 case 9 -> addressBookMain.searchPersonByCityOrState();
-                case 10 -> isExit = true;
+                case 10 -> addressBookMain.countCity();
+                case 11 -> isExit = true;
                 default -> System.out.println("Please enter valid details");
             }
         }
