@@ -84,6 +84,8 @@ public class AddressBookMain {
             System.out.println(personDetails);
         }
     }
+
+
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book");
         boolean isExit = false;
@@ -93,8 +95,10 @@ public class AddressBookMain {
             System.out.println("""
                      Select below
                     1. Add Person details
-                    2. show Address book
-                    3. Exit""");
+                    2. Edit person
+                    3. Delete Person
+                    4. show Address book
+                    5. Exit""");
             int choice = Integer.parseInt(sc.nextLine());
             switch (choice) {
                 case 1 -> addressBookMain.addPerson();
