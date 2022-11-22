@@ -142,6 +142,28 @@ public class AddressBookMain {
     }
 
 
+    //Searching person by city or state
+    public void searchPersonByCityOrState() {
+        System.out.println("Please select the book");
+        String bookName = sc.nextLine();
+        addressBook = getAddressBook(bookName);
+        System.out.println("Enter the city or state name");
+        String name = sc.nextLine();
+
+        if (searchByCityOrState(addressBook, name).size() > 0) {
+            System.out.println(searchByCityOrState(addressBook, name));
+        } else {
+            System.out.println("No Details Found");
+        }
+    }
+
+    private List<Contacts> searchByCityOrState(List<Contacts> addressBook, String input) {
+        return addressBook.stream()
+                .filter(i -> i.getCity().equals(input) || i.getState().equals(input))
+                .collect(Collectors.toList());
+    }
+
+
     //Provided person details
     {
         addressBooks = new HashMap<>();
@@ -210,7 +232,6 @@ public class AddressBookMain {
         while (!isExit) {
             System.out.println("""
                      Select option
-                    Select option
                     1. Add new Address book
                     2. Add new person details
                     3. Edit person details
@@ -219,7 +240,8 @@ public class AddressBookMain {
                     6. show total Address books
                     7. Search person for duplicate entry
                     8. search Person in a City or State from all AddressBook
-                    9. Exit""");
+                    9. search person by city or state
+                    10. Exit""");
             int choice = Integer.parseInt(sc.nextLine());
             switch (choice) {
                 case 1 -> addressBookMain.addAddressBooks();
@@ -230,7 +252,8 @@ public class AddressBookMain {
                 case 6 -> addressBookMain.showAddressBooks();
                 case 7 -> addressBookMain.searchPerson();
                 case 8 -> addressBookMain.searchPersonInMultipleBook();
-                case 9 -> isExit = true;
+                case 9 -> addressBookMain.searchPersonByCityOrState();
+                case 10 -> isExit = true;
                 default -> System.out.println("Please enter valid details");
             }
         }
