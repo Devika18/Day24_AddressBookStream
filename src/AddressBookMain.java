@@ -66,6 +66,19 @@ public class AddressBookMain {
         }
     }
 
+    private void deletePerson() {
+        System.out.println("Enter the Name");
+        String personName = sc.nextLine();
+        for (int i = 0; i < addressBook.size(); i++) {
+            if (personName.equals(addressBook.get(i).getFirstName()) || personName.equals(addressBook.get(i).getLastName())) {
+                addressBook.remove(i);
+                System.out.println("Deleting contact......");
+            } else {
+                System.out.println("No contact found");
+            }
+        }
+    }
+
     private void showAddressBook() {
         for (Contacts personDetails : addressBook) {
             System.out.println(personDetails);
@@ -86,8 +99,9 @@ public class AddressBookMain {
             switch (choice) {
                 case 1 -> addressBookMain.addPerson();
                 case 2 -> addressBookMain.editPerson();
-                case 3 -> addressBookMain.showAddressBook();
-                case 4 -> isExit = true;
+                case 3 -> addressBookMain.deletePerson();
+                case 4 -> addressBookMain.showAddressBook();
+                case 5 -> isExit = true;
                 default -> System.out.println("Please enter valid details");
             }
         }
