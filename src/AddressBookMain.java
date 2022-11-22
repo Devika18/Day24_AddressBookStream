@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AddressBookMain {
     private List<Contacts> addressBook;
@@ -113,6 +114,34 @@ public class AddressBookMain {
         return personList.stream().anyMatch(item -> item.equals(firstName) && item.equals(lastName));
     }
 
+
+    //searching person from all address books by using city or state
+    private void searchPersonInMultipleBook() {
+        addressBook = getAddressBook(null);
+        System.out.println("Enter the city or state name");
+        String name = sc.nextLine();
+
+        if (SearchPersonInMultipleBook(addressBooks, name).size() > 0) {
+            printMap(SearchPersonInMultipleBook(addressBooks, name));
+        } else {
+            System.out.println("No Details Found");
+        }
+    }
+
+    public Map<String, List<Contacts>> SearchPersonInMultipleBook(Map<String, List<Contacts>> addressBooks, String input) {
+        HashMap<String, List<Contacts>> allDetails = new HashMap<>();
+        List<Contacts> allPerson;
+        for (Map.Entry<String, List<Contacts>> list : addressBooks.entrySet()) {
+            allPerson = list.getValue().stream()
+                    .filter(i -> i.getCity().equals(input) || i.getState().equals(input))
+                    .collect(Collectors.toList());
+            allDetails.put(list.getKey(), allPerson);
+
+        }
+        return allDetails;
+    }
+
+
     //Provided person details
     {
         addressBooks = new HashMap<>();
@@ -181,6 +210,7 @@ public class AddressBookMain {
         while (!isExit) {
             System.out.println("""
                      Select option
+                    Select option
                     1. Add new Address book
                     2. Add new person details
                     3. Edit person details
@@ -188,7 +218,8 @@ public class AddressBookMain {
                     5. show Address book
                     6. show total Address books
                     7. Search person for duplicate entry
-                    8. Exit""");
+                    8. search Person in a City or State from all AddressBook
+                    9. Exit""");
             int choice = Integer.parseInt(sc.nextLine());
             switch (choice) {
                 case 1 -> addressBookMain.addAddressBooks();
@@ -198,7 +229,8 @@ public class AddressBookMain {
                 case 5 -> addressBookMain.showAddressBook();
                 case 6 -> addressBookMain.showAddressBooks();
                 case 7 -> addressBookMain.searchPerson();
-                case 8 -> isExit = true;
+                case 8 -> addressBookMain.searchPersonInMultipleBook();
+                case 9 -> isExit = true;
                 default -> System.out.println("Please enter valid details");
             }
         }
